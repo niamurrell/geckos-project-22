@@ -1,0 +1,13 @@
+{
+	"editor.formatOnSave": true,
+
+	// prettier
+	// install it with "Cmd + P" and pasting "ext install esbenp.prettier-vscode"
+	"prettier.singleQuote": true,
+	"prettier.trailingComma": "all",
+	"prettier.semi": true,
+	"prettier.tabWidth": 2,
+	"prettier.useTabs": true,
+	"prettier.bracketSpacing": true,
+	"prettier.arrowParens": "always"
+}
