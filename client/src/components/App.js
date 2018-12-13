@@ -5,6 +5,7 @@ import AddForm from './AddForm';
 class App extends Component {
 	state = {
 		showForm: false,
+		queue: [],
 	};
 
 	handleClick = () => {
@@ -13,15 +14,23 @@ class App extends Component {
 		});
 	};
 
-	handleFormSubmit = (name) => {
-		console.log(name);
+	handleFormSubmit = (addQueueData) => {
+		// input only holds name
+		// have to add additional props like id, data etc. here
+		this.setState({
+			queue: [...this.state.queue, addQueueData],
+			showForm: false,
+		});
 	};
 
 	render() {
+		console.log(this.state.queue);
 		return (
 			<div className="App">
 				<AddButton onClick={this.handleClick} />
-				{this.state.showForm && <AddForm onSubmit={this.handleFormSubmit} />}
+				{this.state.showForm ? (
+					<AddForm onSubmit={this.handleFormSubmit} />
+				) : null}
 			</div>
 		);
 	}
