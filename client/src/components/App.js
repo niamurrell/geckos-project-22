@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
+import AddButton from './AddButton';
+import AddForm from './AddForm';
 
 class App extends Component {
+	state = {
+		showForm: false,
+	};
+
+	handleClick = () => {
+		this.setState({
+			showForm: !this.state.showForm,
+		});
+	};
+
 	render() {
 		return (
 			<div className="App">
-				<header className="App-header">
-					<h1>Welcome to the Stay in Touch Reminder</h1>
-					<p>
-						Edit <code>App.js</code> and save to reload.
-					</p>
-				</header>
+				<AddButton onClick={this.handleClick} />
+				{this.state.showForm && <AddForm />}
 			</div>
 		);
 	}
