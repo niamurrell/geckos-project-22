@@ -13,11 +13,15 @@ class App extends Component {
 		});
 	};
 
+	handleFormSubmit = (name) => {
+		console.log(name);
+	};
+
 	render() {
 		return (
 			<div className="App">
 				<AddButton onClick={this.handleClick} />
-				{this.state.showForm && <AddForm />}
+				{this.state.showForm && <AddForm onSubmit={this.handleFormSubmit} />}
 			</div>
 		);
 	}
