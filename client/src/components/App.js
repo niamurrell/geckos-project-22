@@ -15,8 +15,8 @@ class App extends Component {
 	};
 
 	handleFormSubmit = (addQueueData) => {
-		// input only holds name
-		// have to add additional props like id, data etc. here
+		// the input data currently only holds the name from the form
+		// we have to add additional props like id, data etc. here
 		this.setState({
 			queue: [...this.state.queue, addQueueData],
 			showForm: false,
@@ -24,7 +24,6 @@ class App extends Component {
 	};
 
 	render() {
-		console.log(this.state.queue);
 		return (
 			<div className="App">
 				<AddButton onClick={this.handleClick} />
