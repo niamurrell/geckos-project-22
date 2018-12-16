@@ -30,25 +30,34 @@ body {
 nav {
 	padding: 0 1vw;
 	display: grid;
+	grid-gap: 2vh;
 	grid-auto-rows: min-content;
 	justify-items: center;
 	background-color: var(--off-white);
 }
 
-nav button {
+.navButton {
 	padding: 1rem;
-	width: 90%;
+	width: 70%;
 	background: transparent;
 	font-size: 1.3rem;
 	letter-spacing: 1px;
-	transition: all .2s ease;
+	transition: all .2s ease, color .05s ease;
 	box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
 	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
 	border: solid 2px var(--dark-gray);
+	color: var(--black);
+	text-decoration: none;
 }
 
-nav button:hover {
+.navButton:hover {
 	box-shadow: 2px 8px 4px -6px hsla(0,0%,0%,.3);
+	font-weight: bold;
+}
+
+.navButton:active {
+	color: var(--coral-accent);
+	font-weight: bold;
 }
 
 main {

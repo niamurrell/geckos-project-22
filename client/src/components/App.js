@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Nav from './Nav';
 import Main from './Main';
+import Contacts from './Contacts';
 // import AddButton from './AddButton';
 // import AddForm from './AddForm';
 
@@ -27,14 +29,19 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<Nav />
-				<Main />
-				{/* <AddButton onClick={this.handleClick} />
-				{this.state.showForm ? (
-					<AddForm onSubmit={this.handleFormSubmit} />
-				) : null} */}
-			</div>
+			<BrowserRouter>
+				<div className="App">
+					<Nav />
+					<Switch>
+						<Route exact path='/' component={Main} />
+						<Route path='/contacts' component={Contacts} />
+					</Switch>
+					{/* <AddButton onClick={this.handleClick} />
+					{this.state.showForm ? (
+						<AddForm onSubmit={this.handleFormSubmit} />
+					) : null} */}
+				</div>
+			</BrowserRouter>
 		);
 	}
 }
