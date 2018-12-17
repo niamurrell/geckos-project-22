@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import AddButton from './AddButton';
-import AddForm from './AddForm';
+import Nav from './Nav';
+import Main from './Main';
+// import AddButton from './AddButton';
+// import AddForm from './AddForm';
 
 class App extends Component {
 	state = {
@@ -26,10 +28,12 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<AddButton onClick={this.handleClick} />
+				<Nav />
+				<Main />
+				{/* <AddButton onClick={this.handleClick} />
 				{this.state.showForm ? (
 					<AddForm onSubmit={this.handleFormSubmit} />
-				) : null}
+				) : null} */}
 			</div>
 		);
 	}
