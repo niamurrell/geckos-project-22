@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import idb from 'idb';
 import Nav from './Nav';
 import Main from './Main';
 import Contacts from './Contacts';
 
 class App extends Component {
 	state = {
-		showForm: false,
 		dataIsStorable: false,
-		queue: [],
+		queue: ['dummy data from App.js state'],
 	};
 
 	// check if user can store data locally
@@ -22,10 +22,37 @@ class App extends Component {
 		}
 	};
 
+	saveToDatabase = async () => {
+		const dbName = 'reminder';
+		const osName = 'queue';
+
+		// request a db connection and create a store
+		const db = await idb.open(dbName, 1, (upgradeDB) =>
+			upgradeDB.createObjectStore(osName, { autoIncrement: true }),
+		);
+
+		// open store
+		const tx = db.transaction(osName, 'readwrite');
+		const store = tx.objectStore(osName);
+
+		// clean up store
+		store.clear();
+
+		// save every element from queue into store
+		this.state.queue.forEach((element) => store.put(element));
+		return await tx.complete;
+	};
+
 	componentDidMount = () => {
 		this.setState({
 			dataIsStorable: this.checkForIndexedDb(),
 		});
+	};
+
+	componentDidUpdate = () => {
+		if (this.state.dataIsStorable) {
+			this.saveToDatabase();
+		}
 	};
 
 	render() {
