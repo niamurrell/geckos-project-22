@@ -3,27 +3,28 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Nav from './Nav';
 import Main from './Main';
 import Contacts from './Contacts';
-// import AddButton from './AddButton';
-// import AddForm from './AddForm';
 
 class App extends Component {
 	state = {
 		showForm: false,
+		dataIsStorable: false,
 		queue: [],
 	};
 
-	handleClick = () => {
-		this.setState({
-			showForm: !this.state.showForm,
-		});
+	// check if user can store data locally
+	checkForIndexedDb = () => {
+		if (window.indexedDB) {
+			console.log('Your data gets stored if you close the window.');
+			return true;
+		} else {
+			console.warn('Your data is gone if you close the window.');
+			return false;
+		}
 	};
 
-	handleFormSubmit = (addQueueData) => {
-		// the input data currently only holds the name from the form
-		// we have to add additional props like id, data etc. here
+	componentDidMount = () => {
 		this.setState({
-			queue: [...this.state.queue, addQueueData],
-			showForm: false,
+			dataIsStorable: this.checkForIndexedDb(),
 		});
 	};
 
@@ -33,13 +34,9 @@ class App extends Component {
 				<div className="App">
 					<Nav />
 					<Switch>
-						<Route exact path='/' component={Main} />
-						<Route path='/contacts' component={Contacts} />
+						<Route exact path="/" component={Main} />
+						<Route path="/contacts" component={Contacts} />
 					</Switch>
-					{/* <AddButton onClick={this.handleClick} />
-					{this.state.showForm ? (
-						<AddForm onSubmit={this.handleFormSubmit} />
-					) : null} */}
 				</div>
 			</BrowserRouter>
 		);
