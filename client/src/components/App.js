@@ -1,30 +1,58 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import idb from 'idb';
 import Nav from './Nav';
 import Main from './Main';
 import Contacts from './Contacts';
-// import AddButton from './AddButton';
-// import AddForm from './AddForm';
 
 class App extends Component {
 	state = {
-		showForm: false,
-		queue: [],
+		dataIsStorable: false,
+		queue: ['dummy data from App.js state'],
 	};
 
-	handleClick = () => {
+	// check if user can store data locally
+	checkForIndexedDb = () => {
+		if (window.indexedDB) {
+			console.log('Your data gets stored if you close the window.');
+			return true;
+		} else {
+			console.warn('Your data is gone if you close the window.');
+			return false;
+		}
+	};
+
+	saveToDatabase = async () => {
+		const dbName = 'reminder';
+		const osName = 'queue';
+
+		// request a db connection and create a store
+		const db = await idb.open(dbName, 1, (upgradeDB) =>
+			upgradeDB.createObjectStore(osName, { autoIncrement: true }),
+		);
+
+		// open store
+		const tx = db.transaction(osName, 'readwrite');
+		const store = tx.objectStore(osName);
+
+		// clean up store
+		store.clear();
+
+		// save every element from queue into store
+		this.state.queue.forEach((element) => store.put(element));
+		return await tx.complete;
+	};
+
+	componentDidMount = () => {
 		this.setState({
-			showForm: !this.state.showForm,
+			dataIsStorable: this.checkForIndexedDb(),
 		});
 	};
 
-	handleFormSubmit = (addQueueData) => {
-		// the input data currently only holds the name from the form
-		// we have to add additional props like id, data etc. here
-		this.setState({
-			queue: [...this.state.queue, addQueueData],
-			showForm: false,
-		});
+	componentDidUpdate = () => {
+		if (this.state.dataIsStorable) {
+			this.saveToDatabase();
+		}
 	};
 
 	render() {
@@ -33,13 +61,9 @@ class App extends Component {
 				<div className="App">
 					<Nav />
 					<Switch>
-						<Route exact path='/' component={Main} />
-						<Route path='/contacts' component={Contacts} />
+						<Route exact path="/" component={Main} />
+						<Route path="/contacts" component={Contacts} />
 					</Switch>
-					{/* <AddButton onClick={this.handleClick} />
-					{this.state.showForm ? (
-						<AddForm onSubmit={this.handleFormSubmit} />
-					) : null} */}
 				</div>
 			</BrowserRouter>
 		);
