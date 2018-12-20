@@ -1,7 +1,9 @@
 import React from 'react';
+import Queue from './Queue';
 
 const Main = props => (
 	<main>
+		<Queue />
 		<h1>This is a placeholder section for the main content</h1>
 		<p>Effective altruism, shared value scale and impact B-corp social enterprise living a fully ethical life strategy academic paradigm changemaker dynamic. Co-create empower program area, issue outcomes, transparent natural resources, game-changer low-hanging fruit think tank systems thinking program area social enterprise big data strengthening infrastructure. Efficient social entrepreneur resist, compassion game-changer.</p>
 
