@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import idb from 'idb';
 import Nav from './Nav';
 import Main from './Main';
-import Contacts from './Contacts';
+import Contacts from './contacts/Contacts';
 
 class App extends Component {
 	state = {
