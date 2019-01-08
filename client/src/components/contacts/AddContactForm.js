@@ -9,7 +9,12 @@ class AddContactForm extends Component {
 		addButtonEnabled: false
 	}
 
-	checkIfAllInputsHaveValue = () => Object.values(this.state.contact).every((value) => value);
+	checkIfAllInputsHaveValue = () => {
+		const requiredInputs = ["name"];
+		return requiredInputs.every(requiredInput => {
+			return this.state.contact[requiredInput];
+		})
+	}
 
 	handleSubmit = (event) => {
 		event.preventDefault();
@@ -24,9 +29,13 @@ class AddContactForm extends Component {
 			contact: {
 				...this.state.contact,
 				[contactFieldName]: contactFieldValue,
-			},
-			addButtonEnabled: this.checkIfAllInputsHaveValue()
-		})
+			}
+		},
+			// make the check after the update of the state
+			() => this.setState({
+				addButtonEnabled: this.checkIfAllInputsHaveValue()
+			})
+		)
 	}
 
 	handleCloseClick = (event) => {

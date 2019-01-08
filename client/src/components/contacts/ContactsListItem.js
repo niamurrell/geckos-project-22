@@ -17,7 +17,7 @@ const ContactsListItem = ({ contact: { name, generalNote, pastMeetings } }) => {
 				Name: {name}
 			</p>
 			<p>
-				General Note: {generalNote}
+				General Note: {generalNote || "No Note"}
 			</p>
 			<p>
 				Number of Past Meetings: {noOfMeetings}
