@@ -51,11 +51,21 @@ class Contacts extends Component {
 		]
 	}
 
+	deleteContact = (contactId) => {
+		this.setState({
+			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId)
+		})
+	}
+
 	render() {
 		return (
 			<main>
 				<h1>Contacts</h1>
-				<ContactsList contacts={this.state.contacts} />
+				{
+					this.state.contacts.length > 0
+						? <ContactsList contacts={this.state.contacts} deleteContact={this.deleteContact} />
+						: <li className="contacts-list__item">You have no contacts :(</li>
+				}
 			</main>
 		);
 	}

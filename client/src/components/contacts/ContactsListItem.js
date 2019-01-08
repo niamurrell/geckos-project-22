@@ -3,7 +3,7 @@ import React from 'react';
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 const formatDate = timeStamp => new Date(timeStamp).toLocaleDateString('en-GB', dateOptions);
 
-const ContactsListItem = ({ contact }) => {
+const ContactsListItem = ({ contact, deleteContact }) => {
 	const noOfMeetings = contact.pastMeetings.length;
 
 	return (
@@ -20,6 +20,7 @@ const ContactsListItem = ({ contact }) => {
 			<p>
 				Last Contact: {contact.pastMeetings[noOfMeetings - 1].note} - {formatDate(contact.pastMeetings[noOfMeetings - 1].timestamp)}
 			</p>
+			<button onClick={() => deleteContact(contact.contact_id)}>Delete</button>
 		</li>
 	);
 }
