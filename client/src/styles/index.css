@@ -66,13 +66,21 @@ main {
 
 
 /* CONTACTS */
-.contacts-list__item {
-	list-style-type: none;
-	border: 1px solid var(--dark-gray);
+.border-box {
 	padding: 12px;
-	margin: 20px 0;
+	border: 1px solid var(--dark-gray);
 	color: var(--black);
 	transition: all .2s ease, color .05s ease;
 	box-shadow: 20px 38px 34px -26px hsla(0,0%,0%,.2);
 	border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+}
+
+.contacts-list__item {
+	list-style-type: none;
+	margin: 20px 0;
+}
+
+.form-input {
+	text-align: center;
+	margin: 20px;
 }
