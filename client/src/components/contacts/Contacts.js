@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import ContactsList from "./ContactsList"
 import AddContactForm from './AddContactForm';
+import EditContactForm from './EditContactForm';
 
 class Contacts extends Component {
 	state = {
 		showAddContactForm: false,
+		showEditContactForm: false,
 		contacts: [
 			{
 				contact_id: 1,
@@ -59,10 +61,12 @@ class Contacts extends Component {
 		})
 	}
 
-	/*
-		go to the last contact and increase the id by 1 to get a new id for the new contact
-		or if there is no contact, return 1 as the new id
-	*/
+	toggleShowEditContactForm = () => {
+		this.setState({
+			showEditContactForm: !this.state.showEditContactForm
+		})
+	}
+
 	createNewContactId = () => (
 		this.state.contacts
 			? this.state.contacts[this.state.contacts.length - 1].contact_id + 1
@@ -81,20 +85,44 @@ class Contacts extends Component {
 		})
 	}
 
+	saveContact = ({ contact_id, name, generalNote, pastMeetings }) => {
+		const cleanedContacts = this.state.contacts.filter(contact => contact.contact_id !== contact_id)
+		const newContact = {
+			contact_id,
+			name,
+			generalNote,
+			pastMeetings
+		};
+		this.setState({
+			contacts: [...cleanedContacts, newContact]
+		})
+	}
+
+	editContact = (currentId) => {
+		this.setState({
+			showEditContactForm: !this.state.showEditContactForm,
+			currentId
+		})
+	}
+
 	render() {
 		return (
 			<main>
 				<h1>Contacts</h1>
 				{
-					!this.state.showAddContactForm
-						? <button onClick={this.toggleShowAddContactForm}>Add New Contact</button> : null
-				}
-				{
 					this.state.showAddContactForm
 						? <AddContactForm addContact={this.addContact} closeForm={this.toggleShowAddContactForm} />
+						: <button onClick={this.toggleShowAddContactForm}>Add New Contact</button>
+				}
+				{
+					this.state.showEditContactForm
+						? <EditContactForm contact={this.state.contacts.filter(contact => contact.contact_id === this.state.currentId)}
+							saveContact={this.saveContact}
+							closeForm={this.toggleShowEditContactForm}
+						/>
 						: null
 				}
-				<ContactsList contacts={this.state.contacts} />
+				<ContactsList contacts={this.state.contacts} editContact={this.editContact} />
 			</main>
 		);
 	}
