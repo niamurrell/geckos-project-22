@@ -21,19 +21,6 @@ class Contacts extends Component {
 		})
 	}
 
-	saveContact = ({ contact_id, name, generalNote, pastMeetings }) => {
-		const cleanedContacts = this.props.contacts.filter(contact => contact.contact_id !== contact_id)
-		const newContact = {
-			contact_id,
-			name,
-			generalNote,
-			pastMeetings
-		};
-		this.setState({
-			contacts: [...cleanedContacts, newContact]
-		})
-	}
-
 	editContact = (currentId) => {
 		this.setState({
 			showEditContactForm: !this.state.showEditContactForm,
@@ -53,7 +40,7 @@ class Contacts extends Component {
 				{
 					this.state.showEditContactForm
 						? <EditContactForm contact={this.props.contacts.filter(contact => contact.contact_id === this.state.currentId)}
-							saveContact={this.saveContact}
+							saveContact={this.props.saveContact}
 							closeForm={this.toggleShowEditContactForm}
 						/>
 						: null

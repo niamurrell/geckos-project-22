@@ -81,6 +81,19 @@ class App extends Component {
 		})
 	}
 
+	saveContact = ({ contact_id, name, generalNote, pastMeetings }) => {
+		const cleanedContacts = this.state.contacts.filter(contact => contact.contact_id !== contact_id)
+		const newContact = {
+			contact_id,
+			name,
+			generalNote,
+			pastMeetings
+		};
+		this.setState({
+			contacts: [...cleanedContacts, newContact]
+		})
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -94,6 +107,7 @@ class App extends Component {
 								contacts={this.state.contacts}
 								addContact={this.addContact}
 								deleteContact={this.deleteContact}
+								saveContact={this.saveContact}
 							/>} />
 					</Switch>
 				</div>
