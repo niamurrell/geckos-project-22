@@ -59,15 +59,11 @@ class Contacts extends Component {
 		})
 	}
 
-	/*
-		go to the last contact and increase the id by 1 to get a new id for the new contact
-		or if there is no contact, return 1 as the new id
-	*/
-	createNewContactId = () => (
-		this.state.contacts
+	createNewContactId = () => {
+		return this.state.contacts
 			? this.state.contacts[this.state.contacts.length - 1].contact_id + 1
 			: 1
-	)
+	}
 
 	addContact = ({ name, generalNote }) => {
 		const newContact = {
@@ -78,6 +74,12 @@ class Contacts extends Component {
 		};
 		this.setState({
 			contacts: [...this.state.contacts, newContact]
+		})
+	};
+
+	deleteContact = (contactId) => {
+		this.setState({
+			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId)
 		})
 	}
 
@@ -94,7 +96,11 @@ class Contacts extends Component {
 						? <AddContactForm addContact={this.addContact} closeForm={this.toggleShowAddContactForm} />
 						: null
 				}
-				<ContactsList contacts={this.state.contacts} />
+				{
+					this.state.contacts.length > 0
+						? <ContactsList contacts={this.state.contacts} deleteContact={this.deleteContact} />
+						: <li className="contacts-list__item">You have no contacts :(</li>
+				}
 			</main>
 		);
 	}
