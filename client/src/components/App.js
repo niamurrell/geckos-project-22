@@ -100,15 +100,23 @@ class App extends Component {
 				<div className="App">
 					<Nav />
 					<Switch>
-						<Route exact path="/" component={Main} />
+						<Route
+							exact path="/"
+							render={(props) =>
+								<Main {...props}
+									contacts={this.state.contacts}
+								/>}
+						/>
 						<Route
 							path="/contacts"
-							render={(props) => <Contacts {...props}
-								contacts={this.state.contacts}
-								addContact={this.addContact}
-								deleteContact={this.deleteContact}
-								saveContact={this.saveContact}
-							/>} />
+							render={(props) =>
+								<Contacts {...props}
+									contacts={this.state.contacts}
+									addContact={this.addContact}
+									deleteContact={this.deleteContact}
+									saveContact={this.saveContact}
+								/>}
+						/>
 					</Switch>
 				</div>
 			</BrowserRouter>
