@@ -9,6 +9,7 @@ class App extends Component {
 	state = {
 		dataIsStorable: false,
 		queue: ['dummy data from App.js state'],
+		contacts: []
 	};
 
 	// check if user can store data locally
@@ -55,14 +56,67 @@ class App extends Component {
 		}
 	};
 
+	createNewContactId = () => {
+		const numberOfContacts = this.state.contacts.length || 1;
+		return this.state.contacts.length > 0
+			? this.state.contacts[numberOfContacts - 1].contact_id + 1
+			: 1
+	}
+
+	addContact = ({ name, generalNote }) => {
+		const newContact = {
+			contact_id: this.createNewContactId(),
+			name,
+			generalNote,
+			pastMeetings: []
+		};
+		this.setState({
+			contacts: [...this.state.contacts, newContact]
+		})
+	};
+
+	deleteContact = (contactId) => {
+		this.setState({
+			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId)
+		})
+	}
+
+	saveContact = ({ contact_id, name, generalNote, pastMeetings }) => {
+		const cleanedContacts = this.state.contacts.filter(contact => contact.contact_id !== contact_id)
+		const newContact = {
+			contact_id,
+			name,
+			generalNote,
+			pastMeetings
+		};
+		this.setState({
+			contacts: [...cleanedContacts, newContact]
+		})
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
 				<div className="App">
 					<Nav />
 					<Switch>
-						<Route exact path="/" component={Main} />
-						<Route path="/contacts" component={Contacts} />
+						<Route
+							exact path="/"
+							render={(props) =>
+								<Main {...props}
+									contacts={this.state.contacts}
+								/>}
+						/>
+						<Route
+							path="/contacts"
+							render={(props) =>
+								<Contacts {...props}
+									contacts={this.state.contacts}
+									addContact={this.addContact}
+									deleteContact={this.deleteContact}
+									saveContact={this.saveContact}
+								/>}
+						/>
 					</Switch>
 				</div>
 			</BrowserRouter>
