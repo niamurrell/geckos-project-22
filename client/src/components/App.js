@@ -9,7 +9,26 @@ class App extends Component {
 	state = {
 		dataIsStorable: false,
 		queue: [],
-		contacts: []
+		contacts: [
+			{
+				contact_id: 1,
+				generalNote: "The quick brown fox jumps over the lazy dog and then she sees a duck and thinks about it for a little while before deciding to make the duck her next meal. But then she hears all of the duck's little ducklings and thinks better of it.",
+				name: "Dianne",
+				pastMeetings: []
+			},
+			{
+				contact_id: 2,
+				generalNote: "React meetup",
+				name: "Phyllis",
+				pastMeetings: []
+			},
+			{
+				contact_id: 3,
+				generalNote: "diamond conference",
+				name: "Jared",
+				pastMeetings: []
+			}
+		]
 	};
 
 	// check if user can store data locally
