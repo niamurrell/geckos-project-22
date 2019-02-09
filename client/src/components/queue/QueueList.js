@@ -1,14 +1,21 @@
 import React from 'react';
 import QueueListItem from './QueueListItem';
 
-const QueueList = ({ queue, editContact, deleteContact }) => (
-	<ul>
-		{
-			queue.map(contact =>
-				<QueueListItem contact={contact} key={contact.contact_id} editContact={editContact} deleteContact={deleteContact} />
-			)
-		}
-	</ul>
-);
+const QueueList = ({ contacts, queue }) => {
+	const getContact = (item) => contacts.find(contact => contact.contact_id === item.contactId);
+
+	return (
+		<ul>
+			{
+				queue.map(queueItem =>
+					<QueueListItem
+						queueItemContact={getContact(queueItem)}
+						key={queueItem.queueItem_id}
+					/>
+				)
+			}
+		</ul>
+	)
+};
 
 export default QueueList;
