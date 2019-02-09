@@ -123,6 +123,7 @@ class App extends Component {
 							exact path="/"
 							render={(props) =>
 								<Queue {...props}
+									queue={this.state.queue}
 									contacts={this.state.contacts}
 								/>}
 						/>
