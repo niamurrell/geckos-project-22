@@ -152,6 +152,7 @@ class App extends Component {
 									addContact={this.addContact}
 									deleteContact={this.deleteContact}
 									saveContact={this.saveContact}
+									queue={this.state.queue}
 									addToQueue={this.addToQueue}
 								/>}
 						/>

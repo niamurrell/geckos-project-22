@@ -3,12 +3,15 @@ import React from 'react';
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 const formatDate = timeStamp => new Date(timeStamp).toLocaleDateString('en-GB', dateOptions);
 
-const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetings }, editContact, deleteContact, addToQueue }) => {
+const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetings }, queue, editContact, deleteContact, addToQueue }) => {
 	const noOfMeetings = pastMeetings.length;
 	const createLastContactInformation = () => (
 		noOfMeetings
 			? `${pastMeetings[noOfMeetings - 1].note} - ${formatDate(pastMeetings[noOfMeetings - 1].timestamp)}`
 			: "never"
+	)
+	const findContactInQueue = () => (
+		queue.find(queueItem => queueItem.contactId === contact_id) ? true : false
 	)
 
 	return (
@@ -27,8 +30,12 @@ const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetin
 			<p>
 				Last Contact: {createLastContactInformation()}
 			</p>
-			<button className="contact-button" onClick={() => addToQueue(contact_id)}>Add To Queue</button>
-		</li>
+			{
+				findContactInQueue()
+					? (<button className="contact-button" disabled>Added To Queue</button>)
+					: (<button className="contact-button" onClick={() => addToQueue(contact_id)}>Add To Queue</button>)
+			}
+		</li >
 	);
 }
 
