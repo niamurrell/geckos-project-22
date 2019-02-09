@@ -3,7 +3,7 @@ import React from 'react';
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 const formatDate = timeStamp => new Date(timeStamp).toLocaleDateString('en-GB', dateOptions);
 
-const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetings }, editContact, deleteContact, addToQueue }) => {
+const QueueListItem = ({ contact: { contact_id, name, generalNote, pastMeetings } }) => {
 	const noOfMeetings = pastMeetings.length;
 	const createLastContactInformation = () => (
 		noOfMeetings
@@ -16,8 +16,6 @@ const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetin
 			<p>
 				Name: {name}
 			</p>
-			<button className="contact-button" onClick={() => deleteContact(contact_id)}>Delete</button>
-			<button className="contact-button" onClick={() => editContact(contact_id)}>Edit</button>
 			<p>
 				General Note: {generalNote || "No Note"}
 			</p>
@@ -27,9 +25,8 @@ const ContactsListItem = ({ contact: { contact_id, name, generalNote, pastMeetin
 			<p>
 				Last Contact: {createLastContactInformation()}
 			</p>
-			<button className="contact-button" onClick={() => addToQueue(contact_id)}>Add To Queue</button>
 		</li>
 	);
 }
 
-export default ContactsListItem;
+export default QueueListItem;

@@ -113,6 +113,23 @@ class App extends Component {
 		})
 	}
 
+	createNewQueueItemId = () => {
+		const numberOfQueueItems = this.state.queue.length || 1;
+		return this.state.queue.length > 0
+			? this.state.queue[numberOfQueueItems - 1].queueItem_id + 1
+			: 1
+	}
+
+	addToQueue = (contactId) => {
+		const newQueueItem = {
+			queueItem_id: this.createNewQueueItemId(),
+			contactId
+		};
+		this.setState({
+			queue: [...this.state.queue, newQueueItem]
+		})
+	};
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -135,6 +152,7 @@ class App extends Component {
 									addContact={this.addContact}
 									deleteContact={this.deleteContact}
 									saveContact={this.saveContact}
+									addToQueue={this.addToQueue}
 								/>}
 						/>
 					</Switch>
