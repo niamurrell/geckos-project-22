@@ -96,7 +96,8 @@ class App extends Component {
 
 	deleteContact = (contactId) => {
 		this.setState({
-			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId)
+			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId),
+			queue: this.state.queue.filter(queueItem => queueItem.contactId !== contactId)
 		})
 	}
 
