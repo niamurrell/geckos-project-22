@@ -112,6 +112,12 @@ class App extends Component {
 		})
 	};
 
+	deleteQueueItem = (queueItem_id) => {
+		this.setState({
+			queue: this.state.queue.filter(queueItem => queueItem.queueItem_id !== queueItem_id)
+		})
+	}
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -124,6 +130,7 @@ class App extends Component {
 								<Queue {...props}
 									queue={this.state.queue}
 									contacts={this.state.contacts}
+									deleteQueueItem={this.deleteQueueItem}
 								/>}
 						/>
 						<Route
