@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import idb from 'idb';
 import Nav from './Nav';
-import Main from './Main';
+import Queue from './queue/Queue';
 import Contacts from './contacts/Contacts';
 
 class App extends Component {
 	state = {
 		dataIsStorable: false,
-		queue: ['dummy data from App.js state'],
+		queue: [],
 		contacts: []
 	};
 
@@ -103,7 +103,7 @@ class App extends Component {
 						<Route
 							exact path="/"
 							render={(props) =>
-								<Main {...props}
+								<Queue {...props}
 									contacts={this.state.contacts}
 								/>}
 						/>
