@@ -1,7 +1,7 @@
 import React from 'react';
 import QueueListItem from './QueueListItem';
 
-const QueueList = ({ contacts, queue }) => {
+const QueueList = ({ contacts, queue, deleteQueueItem }) => {
 	const getContact = (item) => contacts.find(contact => contact.contact_id === item.contactId);
 
 	return (
@@ -9,8 +9,10 @@ const QueueList = ({ contacts, queue }) => {
 			{
 				queue.map(queueItem =>
 					<QueueListItem
+						queueItem={queueItem}
 						queueItemContact={getContact(queueItem)}
 						key={queueItem.queueItem_id}
+						deleteQueueItem={deleteQueueItem}
 					/>
 				)
 			}
