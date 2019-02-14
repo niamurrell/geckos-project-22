@@ -47,7 +47,13 @@ class Contacts extends Component {
 				}
 				{
 					this.props.contacts.length > 0
-						? <ContactsList contacts={this.props.contacts} editContact={this.editContact} deleteContact={this.props.deleteContact} />
+						? <ContactsList
+								contacts={this.props.contacts}
+								editContact={this.editContact}
+								deleteContact={this.props.deleteContact}
+								queue={this.props.queue}
+								addToQueue={this.props.addToQueue}
+							/>
 						: <li className="contacts-list__item">You have no contacts :(</li>
 				}
 			</main >

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import idb from 'idb';
 import Nav from './Nav';
-import Main from './Main';
+import Queue from './queue/Queue';
 import Contacts from './contacts/Contacts';
 
 class App extends Component {
 	state = {
 		dataIsStorable: false,
-		queue: ['dummy data from App.js state'],
+		queue: [],
 		contacts: []
 	};
 
@@ -77,7 +77,8 @@ class App extends Component {
 
 	deleteContact = (contactId) => {
 		this.setState({
-			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId)
+			contacts: this.state.contacts.filter(contact => contact.contact_id !== contactId),
+			queue: this.state.queue.filter(queueItem => queueItem.contactId !== contactId)
 		})
 	}
 
@@ -94,6 +95,23 @@ class App extends Component {
 		})
 	}
 
+	createNewQueueItemId = () => {
+		const numberOfQueueItems = this.state.queue.length || 1;
+		return this.state.queue.length > 0
+			? this.state.queue[numberOfQueueItems - 1].queueItem_id + 1
+			: 1
+	}
+
+	addToQueue = (contactId) => {
+		const newQueueItem = {
+			queueItem_id: this.createNewQueueItemId(),
+			contactId
+		};
+		this.setState({
+			queue: [...this.state.queue, newQueueItem]
+		})
+	};
+
 	render() {
 		return (
 			<BrowserRouter>
@@ -103,7 +121,8 @@ class App extends Component {
 						<Route
 							exact path="/"
 							render={(props) =>
-								<Main {...props}
+								<Queue {...props}
+									queue={this.state.queue}
 									contacts={this.state.contacts}
 								/>}
 						/>
@@ -115,6 +134,8 @@ class App extends Component {
 									addContact={this.addContact}
 									deleteContact={this.deleteContact}
 									saveContact={this.saveContact}
+									queue={this.state.queue}
+									addToQueue={this.addToQueue}
 								/>}
 						/>
 					</Switch>
