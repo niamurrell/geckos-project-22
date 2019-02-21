@@ -1,5 +1,5 @@
 import React from 'react';
-import QueueListItem from './QueueListItem';
+import ListItemCard from '../ListItemCard';
 
 const QueueList = ({ contacts, queue, deleteQueueItem }) => {
 	const getContact = (item) => contacts.find(contact => contact.contact_id === item.contactId);
@@ -8,11 +8,13 @@ const QueueList = ({ contacts, queue, deleteQueueItem }) => {
 		<ul>
 			{
 				queue.map(queueItem =>
-					<QueueListItem
-						queueItem={queueItem}
-						queueItemContact={getContact(queueItem)}
+					<ListItemCard
 						key={queueItem.queueItem_id}
+						contact={getContact(queueItem)}
+						queue={queue}
+						queueItemId={queueItem.queueItem_id}
 						deleteQueueItem={deleteQueueItem}
+						inQueueView={true}
 					/>
 				)
 			}
